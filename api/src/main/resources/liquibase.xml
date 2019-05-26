@@ -1,0 +1,26 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+
+	<changeSet id="nepalEhr-2019-04-15-11:30" author="dipakthapa">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*) from
+				person_attribute_type where name='NHIS Number';
+			</sqlCheck>
+		</preConditions>
+		<comment>
+           	Adds person attribute to record insurance data
+        </comment>
+		<sql>
+			insert into person_attribute_type(name, description,
+			format,searchable, creator, date_created, uuid) values('NHIS Member','Is NHIS member','java.lang.Boolean',0, 1, now(), uuid()),
+			('NHIS Number','NHIS Number','java.lang.String', 1, 1, now(), uuid()),
+			('NHIS Primary Contact Point','Is NHIS primary contact point','java.lang.Boolean',0, 1, now(), uuid());
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

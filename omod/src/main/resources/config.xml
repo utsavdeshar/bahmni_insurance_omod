@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}
+	</package>
+	<author>NepalEHR</author>
+	<description>
+		${project.parent.description}
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
+	</updateURL>
+	<!-- Module Activator -->
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.ImisIntegrationActivator
+	</activator>
+	
+	<require_version>${openMRSRuntimeVersion}</require_version>
+	<!-- / Module Properties -->
+
+
+
+	<!-- Required Modules -->
+	<require_modules>
+		<require_module>org.openmrs.module.webservices.rest</require_module>
+		<require_module>org.bahmni.module.bahmnicore</require_module>
+	</require_modules>
+	<!-- / Required Modules -->
+
+
+</module>
