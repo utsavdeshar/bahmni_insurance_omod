@@ -47,7 +47,7 @@ public class ImisConnectServiceImpl implements ImisConnectService {
 	}
 
 	@Override
-	public String eligibilityRequest(String patientId, String nshiId) {
+	public String eligibilityRequest(String nhisNumber) {
 		String plainCreds = properties.getImisConnectUser() + ":" + properties.getImisConnectPassword();
 		byte[] plainCredsBytes = plainCreds.getBytes();
 		byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
@@ -58,7 +58,7 @@ public class ImisConnectServiceImpl implements ImisConnectService {
 
 		HttpEntity<String> request = new HttpEntity<String>(headers);
 
-		String url = properties.getImisConnectUri() + "/patient/" + patientId;
+		String url = properties.getImisConnectUri() + "/check/eligibility/" + nhisNumber;
 		ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
 		String response = responseEntity.getBody();
 		LOGGER.error(response);
