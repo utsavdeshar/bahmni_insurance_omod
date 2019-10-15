@@ -20,10 +20,10 @@ public class ImisIntegrationController extends BaseRestController {
 	@Autowired
 	ImisConnectService imisConnectService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/eligibility/{patientId}", produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET, value = "/eligibility/{nhisNumber}", produces = "application/json")
 	@ResponseBody
-	public String getEligbility(@PathVariable("patientId") String patientId, String nhisNumber) throws IOException {
-		return imisConnectService.eligibilityRequest(patientId, nhisNumber);
+	public String getEligbility(@PathVariable("nhisNumber") String nhisNumber) throws IOException {
+		return imisConnectService.eligibilityRequest(nhisNumber);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/validate/{nhisNumber}", produces = "application/json")
