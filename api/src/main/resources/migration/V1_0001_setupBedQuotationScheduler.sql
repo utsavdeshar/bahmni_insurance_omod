@@ -1,0 +1,2 @@
+INSERT INTO scheduler_task_config(name, schedulable_class, start_time, start_time_pattern, repeat_interval, start_on_startup, started, created_by, date_created, uuid)
+VALUES ('OpenMRS Bed Sales Quotation Generator Scheduler', 'org.nepalehr.imisintegration.bed.scheduler.tasks.IpdBedSaleQuotationTask', '2019/11/20 00:00:00', 'MM/dd/yyyy HH:mm:ss', 180, 1, 1, 1,  curdate(), uuid())

@@ -7,7 +7,43 @@
   		    http://www.springframework.org/schema/context
   		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   		    
-    <context:component-scan base-package="org.nepalehr.imisintegration" />
+  	   <!--  <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+  	    	    
+  	    	    -->
+  	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <context:component-scan base-package="org.nepalehr.imisintegration" /> 
+    
+    <bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    
+    <bean id="bedServiceImpl" class="org.nepalehr.imisintegration.bed.service.impl.BedServiceImpl">
+        <property name="bedDao">
+            <ref bean="bedDao"/>
+        </property>
+    </bean>
+    
+    <!-- <bean id="imisIntegrationProperties" class="org.nepalehr.imisintegration.constants.ImisIntegrationProperties">
+    </bean>
+    
+    <bean id="imisConnectServiceImpl" class="org.nepalehr.imisintegration.service.impl.ImisConnectServiceImpl">
+        <property name="properties">
+            <ref bean="imisIntegrationProperties"/>
+        </property>
+    </bean> -->
+    
+    
+   <!--  <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> 
+                service interface name
+                <ref bean="ipdBedSalesQuotationService"/>
+            </list>
+        </property>
+    </bean> -->
     
 </beans>
 
