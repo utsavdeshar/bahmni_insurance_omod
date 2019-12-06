@@ -14,7 +14,7 @@ import org.openmrs.module.atomfeed.transaction.support.AtomFeedSpringTransaction
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Service
+//@Service
 public class FeedServiceImpl implements FeedService {
 
 	private static Logger logger = Logger.getLogger(FeedServiceImpl.class);

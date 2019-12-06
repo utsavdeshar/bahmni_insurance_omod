@@ -14,7 +14,7 @@ import org.nepalehr.imisintegration.bed.feed.FeedService;
 import org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService;
 import org.nepalehr.imisintegration.bed.service.BedService;
 
-@Service("ipdBedSalesQuotationService")
+//@Service("ipdBedSalesQuotationService")
 public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationService {
 
 	private static Logger logger = Logger.getLogger(IpdBedSalesQuotationServiceImpl.class);
@@ -23,15 +23,23 @@ public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationServ
 	public static final String CATEGORY = "encounter";
 	public static final String TITLE = "Bed-Assignment";
 
-	@Autowired
 	private BedService bedService;
-
-	@Autowired
 	private FeedService feedService;
 
+	public void setBedService(BedService bedService) {
+		this.bedService = bedService;
+	}
+
+	public void setFeedService(FeedService feedService) {
+		this.feedService = feedService;
+	}
+
 	public List<Event> generateSalesQuotationForDailyBedCharge() {
-		logger.info("Inside generateSalesQuotationForDailyBedCharge.");
+		logger.error("\n\n\n\n Inside generateSalesQuotationForDailyBedCharge.");
 		List<String> uuids = getActiveBedAssignment();
+		for (String uuid : uuids) {
+			logger.error("\n uuid->>" + uuid);
+		}
 		List<Event> events = uuids.stream().map(uuid -> createEvent(uuid)).collect(Collectors.toList());
 		return events;
 	}
@@ -59,7 +67,7 @@ public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationServ
 
 	@Override
 	public void publishEvent() {
-		logger.info("Inside publish event.");
+		logger.error("\n\n\n\n Inside publish event.");
 		List<Event> events = generateSalesQuotationForDailyBedCharge();
 		events.forEach(event -> feedService.publish(event));
 	}

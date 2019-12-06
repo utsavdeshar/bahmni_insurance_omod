@@ -9,7 +9,7 @@ import org.nepalehr.imisintegration.bed.dao.BedDao;
 
 public class BedDaoImpl implements BedDao {
 
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

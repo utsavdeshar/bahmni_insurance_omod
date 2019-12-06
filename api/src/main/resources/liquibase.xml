@@ -23,24 +23,7 @@
 		</sql>
 	</changeSet>
 	
-	<!-- <changeSet id="bed-type-concept-201911111023" author="dipakthapa">
-        <comment>Add Bed type concept procedure</comment>
-        <sql>
-            DROP PROCEDURE IF EXISTS add_bed_type_concept;
-        </sql>
-        <sqlFile splitStatements="false" path="migration/V1_0001_addBedTypeConcept.sql" />
-    </changeSet>
-    
-    <changeSet id="setup-bed-type-concept-201911111030" author="dipakthapa">
-        <sql>
-            DROP PROCEDURE IF EXISTS setup_bed_type_concepts;
-        </sql>
-        <comment>Setup all Bed type concept</comment>
-        <sqlFile splitStatements="false" path="migration/V1_0002_setupBedTypeConcepts.sql" />
-        <sql>call setup_bed_type_concepts();</sql>
-    </changeSet> -->
-    
-    <changeSet id="bed-type-concept-2019-11-15-11:20" author="dipakthapa">
+   <changeSet id="bed-type-concept-2019-11-15-11:20" author="dipakthapa">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config where name = 'OpenMRS Bed Sales Quotation Generator Scheduler';

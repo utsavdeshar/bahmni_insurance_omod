@@ -9,8 +9,8 @@ public class BedServiceImpl implements BedService {
 
 	private BedDao bedDao;
 
-	public void setBedDao(BedDao dao) {
-		this.bedDao = dao;
+	public void setBedDao(BedDao bedDao) {
+		this.bedDao = bedDao;
 	}
 
 	@Override

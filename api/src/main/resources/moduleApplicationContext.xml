@@ -7,43 +7,56 @@
   		    http://www.springframework.org/schema/context
   		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   		    
-  	   <!--  <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-  	    	    
-  	    	    -->
-  	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     <context:component-scan base-package="org.nepalehr.imisintegration" /> 
     
-    <bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
+  	<bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
     </bean>
     
-    <bean id="bedServiceImpl" class="org.nepalehr.imisintegration.bed.service.impl.BedServiceImpl">
+    <bean id="bedService" class="org.nepalehr.imisintegration.bed.service.impl.BedServiceImpl">
         <property name="bedDao">
             <ref bean="bedDao"/>
         </property>
     </bean>
     
-    <!-- <bean id="imisIntegrationProperties" class="org.nepalehr.imisintegration.constants.ImisIntegrationProperties">
+    <bean id="feedService" class="org.nepalehr.imisintegration.bed.feed.impl.FeedServiceImpl">
     </bean>
     
-    <bean id="imisConnectServiceImpl" class="org.nepalehr.imisintegration.service.impl.ImisConnectServiceImpl">
-        <property name="properties">
-            <ref bean="imisIntegrationProperties"/>
+    <bean id="ipdBedSalesQuotationServiceImpl" class="org.nepalehr.imisintegration.bed.scheduler.service.impl.IpdBedSalesQuotationServiceImpl">
+        <property name="bedService">
+            <ref bean="bedService"/>
         </property>
-    </bean> -->
+        <property name="feedService">
+            <ref bean="feedService"/>
+        </property>
+    </bean>
     
+    <bean id="ipdBedSalesQuotationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref bean="ipdBedSalesQuotationServiceImpl"/>
+        </property>
+        <property name="preInterceptors">
+            <ref bean="serviceInterceptors"/>
+        </property>
+        <property name="transactionAttributeSource">
+            <ref bean="transactionAttributeSource"/>
+        </property>
+    </bean>
     
-   <!--  <bean parent="serviceContext">
+    <!-- Services accessible via Context.getService() -->
+     <bean parent="serviceContext">
         <property name="moduleService">
-            <list>
-                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> 
-                service interface name
+            <list merge="true">
+                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> <!-- service interface name -->
                 <ref bean="ipdBedSalesQuotationService"/>
             </list>
         </property>
-    </bean> -->
+    </bean>
     
 </beans>
 

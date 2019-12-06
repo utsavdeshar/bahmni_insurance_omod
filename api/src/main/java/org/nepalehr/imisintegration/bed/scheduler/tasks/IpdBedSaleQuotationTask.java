@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService;
 
-@Component
+//@Component
 public class IpdBedSaleQuotationTask extends AbstractTask {
 
 	@Override
