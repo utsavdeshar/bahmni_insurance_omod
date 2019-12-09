@@ -9,7 +9,7 @@
   		    
     <context:component-scan base-package="org.nepalehr.imisintegration" /> 
     
-  	<bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
+  	<!-- <bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
@@ -31,9 +31,9 @@
         <property name="feedService">
             <ref bean="feedService"/>
         </property>
-    </bean>
+    </bean> -->
     
-    <bean id="ipdBedSalesQuotationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <!-- <bean id="ipdBedSalesQuotationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
             <ref bean="transactionManager"/>
         </property>
@@ -46,17 +46,17 @@
         <property name="transactionAttributeSource">
             <ref bean="transactionAttributeSource"/>
         </property>
-    </bean>
+    </bean> -->
     
     <!-- Services accessible via Context.getService() -->
-     <bean parent="serviceContext">
+    <!-- <bean parent="serviceContext">
         <property name="moduleService">
-            <list merge="true">
-                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> <!-- service interface name -->
+            <list>
+                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> 
                 <ref bean="ipdBedSalesQuotationService"/>
             </list>
         </property>
-    </bean>
+    </bean> -->
     
 </beans>
 

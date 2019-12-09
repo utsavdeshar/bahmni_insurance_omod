@@ -6,14 +6,14 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.nepalehr.imisintegration.bed.dao.BedDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class BedDaoImpl implements BedDao {
 
+	@Autowired
 	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	@Override
 	public List<String> getActiveBedAssignmentUuids() {

@@ -27,6 +27,7 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 	private static Logger logger = Logger.getLogger(BedManagementAdvice.class);
 
 	private final String BED_TYPE_SAVE = "saveBedType";
+	private final String BED_TYPE_DELETE = "deleteBedType";
 	private final String SALEABLE_CONECPT_ATTRIBUTE = "saleable";
 	private final String BED_CONCEPT_CLASS = "Misc";
 	private final String BED_CONCEPT_DATATYPE = "N/A";
@@ -60,36 +61,37 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 	@Override
 	public void afterReturning(Object returnValue, Method method, Object[] arguments, Object bedService)
 			throws Throwable {
-		// Operation operation = new Operation(method);
-		logger.error("\n\n\n\n Method name= \n\n\n\n\n" + method.getName());
-		logger.error("\n\n\n\n Agruments= \n\n\n\n\n" + arguments);
 
 		// Generate Bed Setup Events if Bed Type save/update
-		if (!BED_TYPE_SAVE.equals(method.getName())) {
-			logger.error("\n\n\n\n Inside here.... \n\n\n\n");
+		if (!BED_TYPE_SAVE.equals(method.getName()) || !BED_TYPE_DELETE.equals(method.getName())) {
 			return;
 		}
 
 		BedType bedType = returnValue == null ? (BedType) arguments[0] : (BedType) returnValue;
 
-		if (bedType != null) {
-			logger.error(bedType.getName());
-			logger.error(bedType.getDescription());
-			logger.error(bedType.getUuid());
+		if (BED_TYPE_DELETE.equals(method.getName())) {
+			deleteConcept(bedType);
+			return;
 		}
 
 		Concept bedTypeConcept = mapConcept(bedType);
-
 		conceptService.saveConcept(bedTypeConcept);
 
 	}
 
-	private Concept mapConcept(BedType bedType) {
-		if (conceptService.getConceptByUuid(bedType.getUuid()) != null) {
-			logger.error("\n\n\n\n Concept already added.... \n\n\n\n");
-		}
-
+	private Concept getConcept(BedType bedType) {
 		Concept concept = conceptService.getConceptByUuid(bedType.getUuid());
+		return concept;
+	}
+
+	private void deleteConcept(BedType bedType) {
+		Concept concept = getConcept(bedType);
+
+		conceptService.purgeConcept(concept);
+	}
+
+	private Concept mapConcept(BedType bedType) {
+		Concept concept = getConcept(bedType);
 
 		if (concept == null) {
 			concept = new Concept();
@@ -107,7 +109,6 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 		Locale locale = Context.getLocale();
 		ConceptName existingName = concept.getFullySpecifiedName(locale);
 		if (existingName != null) {
-			logger.error("\nexistingName Concept Full Name==>" + existingName.getName());
 			concept.removeName(existingName);
 		}
 
@@ -117,12 +118,8 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 		conceptFullName.setConceptNameType(ConceptNameType.FULLY_SPECIFIED);
 		concept.setFullySpecifiedName(conceptFullName);
 
-		logger.error("\nConcept Full Name==>" + conceptFullName.getName());
-		logger.error("\n Bed Type display Name==>" + bedType.getDisplayName());
-
 		ConceptName existingShortName = concept.getShortNameInLocale(locale);
 		if (existingShortName != null) {
-			logger.error("\n existingShortName  Concept Full Name==>" + existingShortName.getName());
 			concept.removeName(existingShortName);
 		}
 
@@ -131,13 +128,6 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 		conceptShortName.setLocale(locale);
 		conceptShortName.setConceptNameType(ConceptNameType.SHORT);
 		concept.setShortName(conceptShortName);
-
-		logger.error("\nConcept short Name==>\n" + conceptShortName.getName());
-
-		for (ConceptName conceptName : concept.getNames()) {
-			logger.error("\n Before sving, Concept Name==>" + conceptName.getName());
-			logger.error("\nBefore sving, Concept Name type==>" + conceptName.getConceptNameType());
-		}
 
 		return concept;
 	}

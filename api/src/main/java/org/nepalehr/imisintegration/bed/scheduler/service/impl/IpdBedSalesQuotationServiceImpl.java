@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.ict4h.atomfeed.server.service.Event;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.nepalehr.imisintegration.bed.feed.FeedService;
 import org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService;
 import org.nepalehr.imisintegration.bed.service.BedService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-//@Service("ipdBedSalesQuotationService")
+@Service("ipdBedSalesQuotationService")
 public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationService {
 
 	private static Logger logger = Logger.getLogger(IpdBedSalesQuotationServiceImpl.class);
@@ -23,16 +23,11 @@ public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationServ
 	public static final String CATEGORY = "encounter";
 	public static final String TITLE = "Bed-Assignment";
 
+	@Autowired
 	private BedService bedService;
+
+	@Autowired
 	private FeedService feedService;
-
-	public void setBedService(BedService bedService) {
-		this.bedService = bedService;
-	}
-
-	public void setFeedService(FeedService feedService) {
-		this.feedService = feedService;
-	}
 
 	public List<Event> generateSalesQuotationForDailyBedCharge() {
 		logger.error("\n\n\n\n Inside generateSalesQuotationForDailyBedCharge.");
