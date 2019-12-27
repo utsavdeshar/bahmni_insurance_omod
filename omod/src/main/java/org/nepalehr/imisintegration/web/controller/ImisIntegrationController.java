@@ -2,6 +2,7 @@ package org.nepalehr.imisintegration.web.controller;
 
 import java.io.IOException;
 
+import org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService;
 import org.nepalehr.imisintegration.pojo.OpenImisAccountInformation;
 import org.nepalehr.imisintegration.service.ImisConnectService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
@@ -20,6 +21,9 @@ public class ImisIntegrationController extends BaseRestController {
 	@Autowired
 	ImisConnectService imisConnectService;
 
+	@Autowired
+	IpdBedSalesQuotationService service;
+
 	@RequestMapping(method = RequestMethod.GET, value = "/eligibility/{nhisNumber}", produces = "application/json")
 	@ResponseBody
 	public String getEligbility(@PathVariable("nhisNumber") String nhisNumber) throws IOException {
@@ -36,5 +40,12 @@ public class ImisIntegrationController extends BaseRestController {
 	@ResponseBody
 	public OpenImisAccountInformation getInformation(@PathVariable("nhisNumber") String nhisNumber) {
 		return imisConnectService.getAccountInformation(nhisNumber);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/hello")
+	@ResponseBody
+	public String getInformation() {
+		service.publishEvent();
+		return "hello";
 	}
 }

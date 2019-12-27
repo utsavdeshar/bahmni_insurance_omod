@@ -63,7 +63,7 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 			throws Throwable {
 
 		// Generate Bed Setup Events if Bed Type save/update
-		if (!BED_TYPE_SAVE.equals(method.getName()) || !BED_TYPE_DELETE.equals(method.getName())) {
+		if (!BED_TYPE_SAVE.equals(method.getName()) && !BED_TYPE_DELETE.equals(method.getName())) {
 			return;
 		}
 
@@ -85,6 +85,7 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 	}
 
 	private void deleteConcept(BedType bedType) {
+		logger.error("\n\n Inside deleteConcept \n\n\n");
 		Concept concept = getConcept(bedType);
 
 		conceptService.purgeConcept(concept);
@@ -142,8 +143,6 @@ public class BedManagementAdvice implements AfterReturningAdvice {
 		// Setting up Saleable = true
 		ConceptAttributeType conceptAttributeType = conceptService
 				.getConceptAttributeTypeByName(SALEABLE_CONECPT_ATTRIBUTE);
-
-		logger.error(conceptAttributeType.getName());
 
 		ConceptAttribute conceptAttribute = new ConceptAttribute();
 		conceptAttribute.setAttributeType(conceptAttributeType);

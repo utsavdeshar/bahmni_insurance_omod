@@ -24,7 +24,7 @@
     <bean id="feedService" class="org.nepalehr.imisintegration.bed.feed.impl.FeedServiceImpl">
     </bean>
     
-    <bean id="ipdBedSalesQuotationServiceImpl" class="org.nepalehr.imisintegration.bed.scheduler.service.impl.IpdBedSalesQuotationServiceImpl">
+    <bean id="ipdBedSalesQuotationService" class="org.nepalehr.imisintegration.bed.scheduler.service.impl.IpdBedSalesQuotationServiceImpl">
         <property name="bedService">
             <ref bean="bedService"/>
         </property>
@@ -49,7 +49,7 @@
     </bean> -->
     
     <!-- Services accessible via Context.getService() -->
-    <!-- <bean parent="serviceContext">
+   <!-- <bean parent="serviceContext">
         <property name="moduleService">
             <list>
                 <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> 

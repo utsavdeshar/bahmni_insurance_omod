@@ -18,7 +18,7 @@ public class BedDaoImpl implements BedDao {
 	@Override
 	public List<String> getActiveBedAssignmentUuids() {
 		List<String> uuids = new ArrayList<>();
-		String queryString = "SELECT bpa.uuid FROM BedPatientAssignment bpa WHERE DATEDIFF(now(), bpa.date_started) > 1 AND bpa.endDatetime IS NULL";
+		String queryString = "SELECT bpa.uuid FROM BedPatientAssignment bpa WHERE DATEDIFF(now(), bpa.startDatetime) > 1 AND bpa.endDatetime IS NULL";
 		Query query = sessionFactory.getCurrentSession().createQuery(queryString);
 		uuids = query.list();
 		return uuids;

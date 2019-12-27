@@ -23,7 +23,7 @@
 		</sql>
 	</changeSet>
 	
-   <!-- <changeSet id="bed-type-concept-2019-11-15-11:20" author="dipakthapa">
+   <changeSet id="bed-type-concept-2019-11-15-11:20" author="dipakthapa">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config where name = 'OpenMRS Bed Sales Quotation Generator Scheduler';
@@ -33,6 +33,6 @@
             Add a scheduler for daily bed sales quotation
         </comment>
         <sqlFile path="migration/V1_0001_setupBedQuotationScheduler.sql"/>
-    </changeSet> -->
+    </changeSet>
 
 </databaseChangeLog>
