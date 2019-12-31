@@ -7,18 +7,18 @@ import org.openmrs.scheduler.tasks.AbstractTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class IpdBedSaleQuotationTask extends AbstractTask {
 
-	@Autowired
-	IpdBedSalesQuotationService service;
+	// @Autowired
+	// IpdBedSalesQuotationService service;
 
 	private static Logger logger = Logger.getLogger(IpdBedSaleQuotationTask.class);
 
 	@Override
 	public void execute() {
 		logger.error("\n\n\n\n Inside execute. \n\n");
-		service.publishEvent();
+		// service.publishEvent();
 		Context.getService(IpdBedSalesQuotationService.class).publishEvent();
 	}
 }

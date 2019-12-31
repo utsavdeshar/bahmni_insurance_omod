@@ -11,11 +11,12 @@ import org.joda.time.DateTime;
 import org.nepalehr.imisintegration.bed.feed.FeedService;
 import org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService;
 import org.nepalehr.imisintegration.bed.service.BedService;
+import org.openmrs.api.impl.BaseOpenmrsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("ipdBedSalesQuotationService")
-public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationService {
+@Service
+public class IpdBedSalesQuotationServiceImpl extends BaseOpenmrsService implements IpdBedSalesQuotationService {
 
 	private static Logger logger = Logger.getLogger(IpdBedSalesQuotationServiceImpl.class);
 
@@ -23,14 +24,17 @@ public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationServ
 	public static final String CATEGORY = "encounter";
 	public static final String TITLE = "Bed-Assignment";
 
-	@Autowired
 	private BedService bedService;
 
-	@Autowired
 	private FeedService feedService;
 
+	@Autowired
+	public IpdBedSalesQuotationServiceImpl(BedService bedService, FeedService feedService) {
+		this.bedService = bedService;
+		this.feedService = feedService;
+	}
+
 	public List<Event> generateSalesQuotationForDailyBedCharge() {
-		logger.error("\n\n\n\n Inside generateSalesQuotationForDailyBedCharge.");
 		List<String> uuids = getActiveBedAssignment();
 		for (String uuid : uuids) {
 			logger.error("\n uuid->>" + uuid);
@@ -62,7 +66,6 @@ public class IpdBedSalesQuotationServiceImpl implements IpdBedSalesQuotationServ
 
 	@Override
 	public void publishEvent() {
-		logger.error("\n\n\n\n Inside publish event.");
 		List<Event> events = generateSalesQuotationForDailyBedCharge();
 		events.forEach(event -> feedService.publish(event));
 	}

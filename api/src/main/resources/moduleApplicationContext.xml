@@ -2,61 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-  		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-  		    http://www.springframework.org/schema/context
-  		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util.xsd">
   		    
     <context:component-scan base-package="org.nepalehr.imisintegration" /> 
     
-  	<!-- <bean id="bedDao" class="org.nepalehr.imisintegration.bed.dao.impl.BedDaoImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory"/>
-        </property>
-    </bean>
-    
-    <bean id="bedService" class="org.nepalehr.imisintegration.bed.service.impl.BedServiceImpl">
-        <property name="bedDao">
-            <ref bean="bedDao"/>
-        </property>
-    </bean>
-    
-    <bean id="feedService" class="org.nepalehr.imisintegration.bed.feed.impl.FeedServiceImpl">
-    </bean>
-    
-    <bean id="ipdBedSalesQuotationService" class="org.nepalehr.imisintegration.bed.scheduler.service.impl.IpdBedSalesQuotationServiceImpl">
-        <property name="bedService">
-            <ref bean="bedService"/>
-        </property>
-        <property name="feedService">
-            <ref bean="feedService"/>
-        </property>
-    </bean> -->
-    
-    <!-- <bean id="ipdBedSalesQuotationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager">
-            <ref bean="transactionManager"/>
-        </property>
-        <property name="target">
-            <ref bean="ipdBedSalesQuotationServiceImpl"/>
-        </property>
-        <property name="preInterceptors">
-            <ref bean="serviceInterceptors"/>
-        </property>
-        <property name="transactionAttributeSource">
-            <ref bean="transactionAttributeSource"/>
-        </property>
-    </bean> -->
-    
     <!-- Services accessible via Context.getService() -->
-   <!-- <bean parent="serviceContext">
+  	<bean parent="serviceContext">
         <property name="moduleService">
-            <list>
-                <value>org.nepalehr.imisintegration.scheduler.service.IpdBedSalesQuotationService</value> 
-                <ref bean="ipdBedSalesQuotationService"/>
+            <list merge="true">
+                <value>org.nepalehr.imisintegration.bed.scheduler.service.IpdBedSalesQuotationService</value> 
+                <ref bean="ipdBedSalesQuotationServiceImpl"/>
             </list>
         </property>
-    </bean> -->
-    
+    </bean>    
+     
 </beans>
 
