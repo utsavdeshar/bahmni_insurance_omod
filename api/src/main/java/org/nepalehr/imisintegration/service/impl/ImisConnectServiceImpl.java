@@ -1,6 +1,5 @@
 package org.nepalehr.imisintegration.service.impl;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -9,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.nepalehr.imisintegration.constants.ImisIntegrationProperties;
 import org.nepalehr.imisintegration.pojo.OpenImisAccountInformation;
 import org.nepalehr.imisintegration.service.ImisConnectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,8 +20,11 @@ public class ImisConnectServiceImpl implements ImisConnectService {
 
 	Logger LOGGER = Logger.getLogger(ImisConnectServiceImpl.class);
 
-	@Autowired
 	private ImisIntegrationProperties properties;
+
+	public void setImisIntegrationProperties(ImisIntegrationProperties properties) {
+		this.properties = properties;
+	}
 
 	RestTemplate restTemplate = new RestTemplate();
 
